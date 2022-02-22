@@ -1,0 +1,44 @@
+name: Update Themes
+
+on: 
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 * * *'
+jobs:
+  update_list:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Clone the main repo
+        run: |
+         git clone https://github.com/themercorp/themer.lua --depth 1
+          
+      - name: Copy themes
+        run: |
+          cp themer.lua/lua/themer/modules/themes . -r
+          rm themer.lua -rf
+        - name:  Generate JSON template
+        run: |
+          sudo apt install lua5.3 golang -y > /dev/null
+          lua generate_template.lua
+        - name:  Mustache 
+        run: |
+          go get github.com/cbroglie/mustache
+          lua generate_template.lua
+          mkdir user_css
+          for i in $(\ls generated_templates/);  do  mustache generated_templates/${i} templates/default.mustache >> "user_css/$(echo $i | sed 's/\.json//g').user.css"; done
+      - name: Push Changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_MSG: |
+            [bot] update themes
+            skip-checks: true
+        run: |
+          git config user.email "actions@github"
+          git config user.name "Github Actions"
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          git add user_css/
+          # Only commit and push if we have changes
+          git diff --quiet && git diff --staged --quiet || (git commit -m "${COMMIT_MSG}"; git push origin HEAD:${GITHUB_REF})
