@@ -19,11 +19,11 @@ jobs:
         run: |
           cp themer.lua/lua/themer/modules/themes . -r
           rm themer.lua -rf
-        - name:  Generate JSON template
+      - name:  Generate JSON template
         run: |
           sudo apt install lua5.3 golang -y > /dev/null
           lua generate_template.lua
-        - name:  Mustache 
+      - name:  Mustache 
         run: |
           go get github.com/cbroglie/mustache
           lua generate_template.lua
