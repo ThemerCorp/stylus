@@ -1,0 +1,3 @@
+default:
+    extension: .user.css
+    output: user_css
