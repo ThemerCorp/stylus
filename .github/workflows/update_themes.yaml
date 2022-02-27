@@ -30,11 +30,17 @@ jobs:
       - name:  Generate JSON template
         run: |
           sudo apt install lua5.3  -y > /dev/null
+          rm generated_templates/*
+          mkdir generated_templates
           lua generate_template.lua
       - name:  Mustache 
         run: |
           go install github.com/cbroglie/mustache/cmd/mustache@latest
-          for i in $(\ls generated_templates/);  do  mustache generated_templates/${i} templates/default.mustache >> "user_css/$(echo $i | sed 's/\.json//g').user.css"; done
+          rm user_css/*
+          mkdir user_css
+          for i in $(\ls generated_templates/);  do
+            mustache generated_templates/${i} templates/default.mustache >> "user_css/$(echo $i | sed 's/\.json//g').user.css"
+          done
       - name: Push Changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
