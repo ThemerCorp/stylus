@@ -22,12 +22,11 @@ jobs:
       - name:  Generate JSON template
         run: |
           sudo apt install lua5.3 golang -y > /dev/null
+          mkdir generated_templates
           lua generate_template.lua
       - name:  Mustache 
         run: |
           go get github.com/cbroglie/mustache
-          mkdir generated_templates
-          lua generate_template.lua
           mkdir user_css
           for i in $(\ls generated_templates/);  do  mustache generated_templates/${i} templates/default.mustache >> "user_css/$(echo $i | sed 's/\.json//g').user.css"; done
       - name: Push Changes
