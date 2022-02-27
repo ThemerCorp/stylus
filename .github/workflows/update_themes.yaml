@@ -22,7 +22,6 @@ jobs:
       - name:  Generate JSON template
         run: |
           sudo apt install lua5.3 golang -y > /dev/null
-          mkdir generated_templates
           lua generate_template.lua
       - name:  Mustache 
         run: |
