@@ -12,26 +12,26 @@
 @advanced text ui-font "UI Font" "Noto Sans"
 @advanced text ui-font-size "UI Font Size" "12px"
 @advanced text ui-font-weight "UI Font Weight" "500"
-@advanced color cursor-color "Cursor Color" #302D41
+@advanced color cursor-color "Cursor Color" #302d41
 
 ==/UserStyle== */
 @-moz-document regexp('chrome-extension://.*'),
 regexp('moz-extension://.*') {
 	:root {
-		--bg0: #1E1D2F;
-		--bg1: #1A1823;
-		--bg2: #1A1823;
-		--bg3: #575268;
-		--bg4: #6E6C7E;
-		--fg0: #D9E0EE;
-		--fg1: ;
-		--blue: #96CDFB;
-		--type: #FAE3B0;
-		--keyword: #F28FAD;
-		--text: #D9E0EE;
-		--comment: #6E6C7E;
-		--green: #ABE9B3;
-		--red: #B5E8E0;
+		--bg0: #1e1e2e;
+		--bg1: #1a1826;
+		--bg2: #1a1826;
+		--bg3: #6e6c7e;
+		--bg4: #575268;
+		--fg0: #d9e0ee;
+		--fg1: #d9e0ee;
+		--blue: #f5c2e7;
+		--type: #fae3b0;
+		--keyword: #f28fad;
+		--text: #d9e0ee;
+		--comment: #6e6c7e;
+		--green: #abe9b3;
+		--red: #b5e8e0;
 	}
 
 	body {
